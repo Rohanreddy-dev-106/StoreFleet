@@ -6,7 +6,7 @@
     <td style="padding: 20px;">
       <h1 style="margin: 0 0 16px 0; font-size: 2.5em;">My Project Name</h1>
       <p style="font-size: 1.1em; line-height: 1.6; margin: 0 0 12px 0; color: #586069;">
-        A comprehensive, enterprise-grade solution designed to streamline modern development workflows. Built with cutting-edge technologies and best practices, delivering unmatched performance, security, and scalability.
+        [DUMMY]
       </p>
       <p style="margin: 8px 0 0 0;">
         <img src="https://img.shields.io/badge/version-1.0.0-blue.svg" alt="Version"/>
