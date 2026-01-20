@@ -3,7 +3,7 @@
 <table>
   <tr>
     <td width="100">
-      <img src="" alt="Backend\public\images\Logo.png" width="80"/>
+      <img src="" alt="Logo.png" width="80"/>
     </td>
     <td>
       # My Project Name
