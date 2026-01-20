@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="Backend/public/images/Logo_2.png" alt="Project Logo" width="120" height="120" style="border-radius: 20px;"/>
+  <img src="Backend/public/images/Logo_2.png" alt="Project Logo" width="500" height="500" style="border-radius: 20px;"/>
   
 </div>
 
