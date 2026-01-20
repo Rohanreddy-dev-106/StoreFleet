@@ -4,7 +4,7 @@
   <tr>
     <td width="100">
   <img src="Backend/public/images/Logo_2.png" alt="Logo" width="100" height="100" style="object-fit: contain;"/>
-
+</tr>
     </td>
     <td>
       # My Project Name
