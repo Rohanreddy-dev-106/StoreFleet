@@ -3,7 +3,8 @@
 <table>
   <tr>
     <td width="100">
-      <img src="Logo.png" alt="" width="80"/>
+  <img src="Backend/public/images/Logo_2.png" alt="Logo" width="100" height="100" style="object-fit: contain;"/>
+
     </td>
     <td>
       # My Project Name
