@@ -1,17 +1,31 @@
 import express from "express";
+import userrouts from "./src/Users/users.routs.js"
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import rateLimit from "express-rate-limit";
 import dotenv from "dotenv";
 dotenv.config();
-const server=express();
-
-
+const server = express();
 server.use(express.json())//Postman
 server.use(express.urlencoded({ extended: true }));//Data comming from HTML forms
 server.use(cookieParser())
 server.use(cors({
-    origin: "*" // allow all origins
+  origin: "*" // allow all origins
 }));
+const rateLimitMiddleware = rateLimit({
+  windowMs: 1 * 60 * 60 * 1000,
+  max: 100,
+  success: false,
+  message: "You have reached the request limit. Please try again after 1 hour."
+})
+server.use("/api", rateLimitMiddleware);
+
+//All apis endpoints
+
+server.use("/api/user", userrouts);
+
+
+
 
 
 server.use((req, res, next) => {
