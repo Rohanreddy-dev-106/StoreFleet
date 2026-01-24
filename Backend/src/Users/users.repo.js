@@ -11,7 +11,8 @@ export default class Userrepo {
             const user = new Usermodel(data);
             return await user.save();
         } catch (error) {
-            throw new ApiError(400, error.message);
+            console.log(error.message);
+            
         }
     }
 
@@ -56,7 +57,7 @@ export default class Userrepo {
             const profile = new profilemodel(data);
             return await profile.save();
         } catch (error) {
-            throw new ApiError(400, error.message);
+             console.log(error.message);
         }
     }
 
@@ -77,17 +78,17 @@ export default class Userrepo {
             );
 
             if (!profile) {
-                throw new ApiError(404, "Profile not found");
+                return "profile not found error.."
             }
 
             return profile;
         } catch (error) {
-            throw error;
+             console.log(error.message);
         }
     }
 
     async Storerefreshtoken(id, token) {
-
+  
     }
     async Getrefreshtoken(id) {
 
