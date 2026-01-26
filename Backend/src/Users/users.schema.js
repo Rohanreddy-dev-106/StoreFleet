@@ -1,11 +1,11 @@
 import mongoose, { Schema } from "mongoose";
-
+// unique: true ensures that each email and username can be registered only once
+// Removing it will allow duplicate users in the database
 const usersSchema = new Schema({
     name: {
         type: String,
         required: true,
-        unique: true,      // unique: true ensures that each email and username can be registered only once
-        // Removing it will allow duplicate users in the database
+        unique: true,
         trim: true
     },
 
@@ -32,9 +32,9 @@ const usersSchema = new Schema({
     role: {
         type: String,
         required: true,
-        enum: ["user", "admin","manager"]
+        enum: ["user", "admin", "manager"]
     },
-    refreshToken: { type: String }
+   refreshToken: { type: String, default: null }
 
 },
     { timestamps: true }

@@ -1,7 +1,7 @@
-// import Redis from "ioredis";
+import Redis from "ioredis";
 
 
-// const redis=new Redis();
+const redis=new Redis();
 
 
-// export {redis};
+export {redis};

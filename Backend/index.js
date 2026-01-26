@@ -15,7 +15,6 @@ server.use(cors({
 const rateLimitMiddleware = rateLimit({
   windowMs: 1 * 60 * 60 * 1000,
   max: 100,
-  success: false,
   message: "You have reached the request limit. Please try again after 1 hour."
 })
 server.use("/api", rateLimitMiddleware);

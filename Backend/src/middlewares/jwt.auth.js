@@ -8,7 +8,7 @@ export default function jwtAuth(req, res, next) {
     }
 
     try {
-        const payload = jwt.verify(token, process.env.JWT_TOKEN_KEY);
+        const payload = jwt.verify(token, process.env.ACCESSTOKEN_KEY);
 
         // Attach all user info to req object
         req.user = {

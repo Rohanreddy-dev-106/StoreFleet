@@ -7,19 +7,18 @@ export default class Userrepo {
 
     async Register(data) {
         try {
-            data.password = await bcrypt.hash(data.password, 10);
+            data.password = await bcrypt.hash(data.password, 12);
             const user = new Usermodel(data);
             return await user.save();
         } catch (error) {
             console.log(error.message);
-            
         }
     }
 
     async ResetPassword(id, newpassword) {
         try {
             if (!id || !newpassword) {
-                throw new ApiError(400, "User ID and new password are required");
+                console.log("User ID and new password are required");
             }
 
             const hashedPassword = await bcrypt.hash(newpassword, 10);
@@ -36,19 +35,20 @@ export default class Userrepo {
 
             return user;
         } catch (error) {
-            throw error;
+            console.log(error.message);
         }
     }
 
-    async FindByEmail(email_recived) {
+    async Findemail(email_recived) {
         try {
-            const user = await Usermodel.findOne({email:email_recived});
+            const user = await Usermodel.findOne({ email: email_recived });
             if (!user) {
-                throw new ApiError(404, "User not found");
+                console.log("user not found");
+                
             }
             return user;
         } catch (error) {
-            throw error;
+            console.log(error.message);
         }
     }
 
@@ -57,14 +57,13 @@ export default class Userrepo {
             const profile = new profilemodel(data);
             return await profile.save();
         } catch (error) {
-             console.log(error.message);
+            console.log(error.message);
         }
     }
 
     async UpdateProfile(id, data) {
         try {
             const filter_data = {};
-
             for (const key in data) {
                 if (data[key] !== undefined) {
                     filter_data[key] = data[key];
@@ -83,21 +82,61 @@ export default class Userrepo {
 
             return profile;
         } catch (error) {
-             console.log(error.message);
+            console.log(error.message);
         }
     }
 
-    async Storerefreshtoken(id, token) {
-  
-    }
-    async Getrefreshtoken(id) {
-
-    }
-    async Clearrefreshtoken(id) {
-
-    }
-    async Logout() {
-
+    async StoreRefreshToken(id, token) {
+    try {
+        const user = await Usermodel.findByIdAndUpdate(
+            id,
+            { $set: { refreshToken: token } },
+            { new: true }
+        );
+        if (!user) {
+            throw new Error("User not found while storing refresh token");
+        }
+        return user;
+    } catch (error) {
+        console.log("StoreRefreshToken Error:", error.message);
     }
 }
 
+
+    async GetRefreshToken(id) {
+        try {
+            const docfind = await Usermodel.findById(id);
+            return docfind?.refreshToken; // safe optional chaining
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    async FindUser(id) {
+        try {
+            return await Usermodel.findById(id);
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    async Clearrefreshtoken(id) {
+        try {
+            return await Usermodel.findByIdAndUpdate(
+                id,
+                { $unset: { refreshToken: "" } }
+            );
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+
+    // Admin/Users Level API
+    async Getallusers(roll) {
+        try {
+            return await Usermodel.find();
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
+}

@@ -1,21 +1,25 @@
 import { redis } from "../services/redis.io.js";
-
+import { ApiError } from "./api.error.js";
 async function VerifyOtp(req, res, next) {
     try {
         const { email, otp } = req.body;
 
         if (!email || !otp) {
-            return res.status(400).send("Email and OTP are required");
+            const message=new ApiError(400,"Email and OTP are required")
+            return res.status(400).json(message);
         }
 
         const storedOtp = await redis.get(`otp:${email}`);
 
         if (!storedOtp) {
-            return res.status(400).send("OTP expired or not found");
+            const message=new ApiError(400,"OTP expired or not found")
+            return res.status(400).json(message);
         }
 
         if (storedOtp !== otp) {
-            return res.status(400).send("Invalid OTP");
+             const message=new ApiError(400,("Invalid OTP"))
+            return res.status(400).json(message);
+           
         }
 
         // OTP matched then email is verified

@@ -1,7 +1,7 @@
 import { redis } from "../services/redis.io.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
-
+import { ApiError } from "./api.error.js";
 async function SendOtp(req, res, next) {
     try {
         const { email } = req.body;
@@ -20,8 +20,8 @@ async function SendOtp(req, res, next) {
             port: 587,
             secure: false,
             auth: {
-                user: "kay25@ethereal.email",
-                pass: "KcNg5SRKDXdYsuUBGf",
+                user: "robb.moen@ethereal.email",
+                pass: "MThGfbnTq2E5rWtY56",
             },
         });
 
@@ -119,8 +119,8 @@ async function SendOtp(req, res, next) {
         });
 
     } catch (error) {
-        console.log("Send OTP Error:", error.message);
-        res.status(500).send("Failed to send OTP");
+        const message=new ApiError(500,"Failed to send OTP,",error.message);
+        res.status(500).json(message);
     }
 }
 

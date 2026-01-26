@@ -1,13 +1,41 @@
 import express from "express";
 import Usercontroller from "./users.controller.js";
-const userRouts=express.Router();
-const userControler=new Usercontroller();
+import SendOtp from "../util/otp.sender.js";
+import VerifyOtp from "../util/otp.validation.js";
+import jwtAuth from "../middlewares/jwt.auth.js";
+const userRouts = express.Router();
+const userControler = new Usercontroller();
 
-userRouts.post("/register",(req,res,next)=>{
-    userControler.registation(req,res,next);
+userRouts.post("/otp-send", (req, res, next) => {
+    SendOtp(req, res, next);
+});
+
+userRouts.post("/otp-verify", VerifyOtp, (req, res, next) => {
+    VerifyOtp(req, res, next);
+});
+
+userRouts.post("/register", (req, res, next) => {
+    userControler.registation(req, res, next);
 })
 
+userRouts.post("/login", (req, res, next) => {
+    userControler.login(req, res, next);
+})
+userRouts.post("/creatprofile", jwtAuth, (req, res, next) => {
+    userControler.CreareProfile(req, res, next);
+})
 
+userRouts.put("/profile-update", jwtAuth, (req, res, next) => {
+    userControler.Profileupdate(req, res, next);
+})
+
+userRouts.post("/refresh-Token",jwtAuth,(req,res,next)=>{
+    userControler.CreatenewRefreshTokenAndAccessToken(req,res,next);
+})
+
+userRouts.delete("/logout", jwtAuth, (req, res, next) => {
+    userControler.Logout(req, res, next);
+})
 
 
 export default userRouts;
