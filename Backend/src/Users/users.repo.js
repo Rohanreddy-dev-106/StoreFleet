@@ -61,7 +61,7 @@ export default class Userrepo {
         }
     }
 
-    async UpdateProfile(id, data) {
+    async UpdateProfile(userId, data) {
         try {
             const filter_data = {};
             for (const key in data) {
@@ -70,8 +70,8 @@ export default class Userrepo {
                 }
             }
 
-            const profile = await profilemodel.findByIdAndUpdate(
-                id,
+            const profile = await profilemodel.findOneAndUpdate(
+                 { user: userId }, 
                 { $set: filter_data },
                 { new: true }
             );
@@ -131,10 +131,9 @@ export default class Userrepo {
         }
     }
 
-    // Admin/Users Level API
-    async Getallusers(roll) {
+    async getprofile(UserID) {
         try {
-            return await Usermodel.find();
+            return await profilemodel.findOne({user:UserID});
         } catch (err) {
             console.log(err.message);
         }

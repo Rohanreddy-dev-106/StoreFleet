@@ -7,7 +7,6 @@ import generateRefreshToken from "../util/refreshtoken.create.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
-
 export default class Usercontroller {
     _userrepository;
     constructor() {
@@ -94,14 +93,25 @@ export default class Usercontroller {
             return res.status(404).json(new ApiError(404, "profile is not created"))
         }
     }
+    async Getprofilr(req, res, next) {
+        try {
+            const data=await this._userrepository.getprofile(req.user.UserID);
+            return res.status(200).json({"message":data});
+        }
+        catch (error) {
+            return res.status(404).json(new ApiError(404, "profile is not fetching...", error.message))
+        }
+    }
     async Profileupdate(req, res, next) {
         try {
-            const { data } = req.body;
-            const updatedprofile = await this._userrepository.UpdateProfile(data);
-            return res.status(500).json(new APIResponse(500, "Profile is updated.."))
+            const data = req.body;
+            console.log("UserID from token:", req.user);
+
+            const updatedprofile = await this._userrepository.UpdateProfile(req.user.UserID, data);
+            return res.status(201).json(new APIResponse(201, "Profile is updated.."))
         }
         catch (err) {
-            return res.status(200).json(new ApiError(200, "profile is not updated..", err.message))
+            return res.status(404).json(new ApiError(404, "profile is not updated..", err.message))
         }
     }
     async CreatenewRefreshTokenAndAccessToken(req, res, next) {
@@ -153,7 +163,7 @@ export default class Usercontroller {
     async Logout(req, res, next) {
         try {
             await this._userrepository.Clearrefreshtoken(req.user.UserID);
-         
+
             res.clearCookie("jwtToken", {
                 httpOnly: true,
             });
