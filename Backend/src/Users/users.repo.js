@@ -1,6 +1,5 @@
 import Usermodel from "./users.schema.js";
 import profilemodel from "./user.profile.schema.js";
-import { ApiError } from "../util/api.error.js";
 import bcrypt from "bcrypt";
 
 export default class Userrepo {
