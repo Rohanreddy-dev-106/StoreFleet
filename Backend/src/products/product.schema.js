@@ -34,9 +34,17 @@ const ProductSchema = new mongoose.Schema(
 
         images: { type: String, required: true },
 
+        reviews: [
+            {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Review",
+                default: null   //not added still 
+            }
+        ],
+
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
-            default:"undefind",
+            default: null,
             ref: "User",
             required: true,
             index: true,
