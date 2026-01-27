@@ -36,6 +36,7 @@ const ProductSchema = new mongoose.Schema(
 
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
+            default:"undefind",
             ref: "User",
             required: true,
             index: true,
