@@ -1,6 +1,7 @@
 import express from "express";
 import userrouts from "./src/Users/users.routs.js"
 import ProducrRoute from "./src/products/product.routs.js";
+import managementRouter from "./src/User_Admin_Management/management.routs.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import rateLimit from "express-rate-limit";
@@ -24,6 +25,7 @@ server.use("/api", rateLimitMiddleware);
 
 server.use("/api/user", userrouts);
 server.use("/api/products",ProducrRoute);
+server.use("/api/management",managementRouter);
 
 
 
