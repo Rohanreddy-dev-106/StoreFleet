@@ -1,6 +1,6 @@
 import productmodel from "../products/product.schema.js";
 import Deleteplease from "../util/user_admin_management.js";
-
+import Reviewmodel from "./review.schema.js"
 export default class Managementrepo {
     async searchproducts(name, description, category) {
         try {
@@ -39,7 +39,7 @@ export default class Managementrepo {
             console.log(error.message);
         }
     }
-    async filterproductbyrating(minprice, maxprice) {
+    async filterproductbyprice(minprice, maxprice) {
         try {
             const products = await productmodel.find({
                 $and: [{ price: { $gte: minprice } }, { price: { $lte: maxprice } }],
@@ -66,7 +66,45 @@ export default class Managementrepo {
     async removeadmin(adminid) {
         return Deleteplease(adminid);
     }
+    async createreview(data) {
+        try {
+            const exists = await Reviewmodel.countDocuments({ user: data.user, product: data.product });
+            if (exists >= 1) {
+                return "You have already reviewed this product.";
+            }
+            else {
+                const review = new Reviewmodel(data);
+                const savedReview = await review.save();
+                if (savedReview) {
+                    return await productmodel.findByIdAndUpdate(data.product, { $addToSet: { reviews: savedReview._id } }, { new: true })
+                }
+            }
+        }
+        catch (error) {
+            console.log(error.message);
 
+        }
+    }
+    async filterproductbyprice(minrating, maxrating) {
+        try {
+            return await Reviewmodel.find({ rating: { $gte: minrating, $lte: maxrating } })
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+    }
+   // TODO:Admin DashBoard
+    async dashboard(category="Electronic",minprice=100,maxprice=5000){
+        try{
+           const data=await productmodel.aggregate(
+            {},
+            {}
+           )
+        }
+        catch(error){
+
+        }
+    }
 }
-// async filterproductbyprice(){}//not implemented at
+
 
