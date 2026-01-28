@@ -7,7 +7,7 @@ const ProductSchema = new mongoose.Schema(
             required: true,
             trim: true,
             unique: true,      //  makes product name unique
-            index: true,
+
         },
 
         description: {
@@ -29,7 +29,7 @@ const ProductSchema = new mongoose.Schema(
 
         category: {
             type: String,
-            index: true,
+            required: true
         },
 
         images: { type: String, required: true },
@@ -47,12 +47,24 @@ const ProductSchema = new mongoose.Schema(
             default: null,
             ref: "User",
             required: true,
-            index: true,
         },
     },
     {
         timestamps: true,
     }
 );
+//Search index (text search)
+ProductSchema.index({
+    name: "text",
+    category: "text",
+    description: "text",
+},
+    {
+        weights: {
+            name: 10,
+            category: 5,
+            description: 2
+        }
+    })
 
 export default mongoose.model("Product", ProductSchema);
