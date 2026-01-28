@@ -1,4 +1,5 @@
 import productmodel from "../products/product.schema.js";
+import Deleteplease from "../util/user_admin_management.js";
 
 export default class Managementrepo {
     async searchproducts(name, description, category) {
@@ -51,7 +52,7 @@ export default class Managementrepo {
     async Totalproducts(category, limit, skip) {
         try {
 
-            const total = await productmodel.countDocuments({ category: category }).limit(limit).skip((skip - 1) * limit);
+            const total = await productmodel.countDocuments({ category: category });
             return total;
         }
         catch (error) {
@@ -59,6 +60,13 @@ export default class Managementrepo {
 
         }
     }
+    async removeusers(userid) {
+        return Deleteplease(userid);
+    }
+    async removeadmin(adminid) {
+        return Deleteplease(adminid);
+    }
+
 }
 // async filterproductbyprice(){}//not implemented at
 
