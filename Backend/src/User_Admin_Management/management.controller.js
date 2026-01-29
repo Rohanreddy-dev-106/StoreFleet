@@ -48,11 +48,11 @@ export default class Managementcontroller {
     //  Product details
     async productdetails(req, res) {
         try {
-            const { name, id } = req.params;
+            const { name } = req.params;
 
             const result = await this._managementrepository.productdetails(
                 name,
-                id
+            
             );
 
             if (!result) {
@@ -179,7 +179,7 @@ export default class Managementcontroller {
         }
     }
 
-    // ⭐ Filter by rating
+    //  Filter by rating
     async filterproductbyrating(req, res) {
         try {
             const { minrating, maxrating } = req.query;

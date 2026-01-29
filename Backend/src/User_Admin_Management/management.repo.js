@@ -8,6 +8,8 @@ export default class Managementrepo {
         try {
             const filter = name || description || category;
             const products = await productmodel.find({ $text: { $search: filter } });
+            console.log(products);
+            
             return products;
         }
         catch (error) {
@@ -24,13 +26,12 @@ export default class Managementrepo {
         }
     }
     //public/admin api
-    async productdetails(productName, id) {
+    async productdetails(productName) {
         try {
             const product = await productmodel.findOne({
                 name: productName,
-                _id: id,
             });
-            return product;
+            return product.description;
         } catch (error) {
             console.log(error.message);
         }
@@ -45,16 +46,20 @@ export default class Managementrepo {
         }
     }
     //public/admin
-    async filterproductbyprice(minprice, maxprice) {
-        try {
-            const products = await productmodel.find({
-                $and: [{ price: { $gte: minprice } }, { price: { $lte: maxprice } }],
-            });
-            return products;
-        } catch (error) {
-            console.log(error.message);
-        }
+ async filterproductbyprice(minprice, maxprice) {
+    try {
+        const products = await productmodel.find({
+            $and: [
+                { price: { $gte: minprice } },
+                { price: { $lte: maxprice } }
+            ]
+        });
+        return products;
+    } catch (error) {
+        console.log("Error filtering products by price:", error.message);
+        return [];
     }
+}
     //maneger and admin only
     async Totalproducts(category, limit, skip) {
         try {
@@ -79,6 +84,8 @@ export default class Managementrepo {
     async createreview(data) {
         try {
             const exists = await Reviewmodel.countDocuments({ user: data.user, product: data.product });
+            console.log(exists);
+            
             if (exists >= 1) {
                 return "You have already reviewed this product.";
             }
@@ -96,7 +103,7 @@ export default class Managementrepo {
         }
     }
     //public/admin
-    async filterproductbyprice(minrating, maxrating) {
+    async filterproductbyrating(minrating, maxrating) {
         try {
             return await Reviewmodel.find({ rating: { $gte: minrating, $lte: maxrating } })
         }

@@ -5,7 +5,7 @@ import jwtAuth from "../middlewares/jwt.auth.js";
 const managementRouter = express.Router();
 const management = new Managementcontroller();
 
-managementRouter.get("/products/search", jwtAuth, (req, res, next) =>
+managementRouter.post("/products/search", jwtAuth, (req, res, next) =>
     management.searchproducts(req, res, next)
 );
 
@@ -13,7 +13,7 @@ managementRouter.get("/products", jwtAuth, (req, res, next) =>
     management.getallproducts(req, res, next)
 );
 
-managementRouter.get("/products/:id/:name", jwtAuth, (req, res, next) =>
+managementRouter.get("/details/:name", jwtAuth, (req, res, next) =>
     management.productdetails(req, res, next)
 );
 
