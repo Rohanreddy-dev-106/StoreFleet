@@ -1,6 +1,5 @@
 import express from "express";
 import Productcontroller from "./product.controller.js";
-import Productcontroller from "./product.controller.js";
 import jwtAuth from "../middlewares/jwt.auth.js";
 const ProductRoute=express.Router();
 const Pcontroller=new Productcontroller();
@@ -15,7 +14,7 @@ ProductRoute.put("/update/:id",jwtAuth, (req, res, next) => {
 });
 
 
-ProductRoute.get("get-all/", (req, res, next) => {
+ProductRoute.get("/get-all", (req, res, next) => {
     Pcontroller.Readproduct(req, res, next); 
 });
 

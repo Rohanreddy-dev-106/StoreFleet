@@ -19,6 +19,8 @@ export default class Productrepo {
                     updateData[key] = fields[key];
                 }
             }
+            console.log(updateData);
+            
             return await productmodel.findByIdAndUpdate(id, { $set: updateData }, { new: true })
 
 
@@ -31,7 +33,7 @@ export default class Productrepo {
     }
 
 
-    async readproducts() {
+    async readproducts(id) {
         try {
             return await productmodel.find({});
         } catch (error) {

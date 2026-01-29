@@ -1,4 +1,4 @@
-import Usermodel from "./users.schema.js";
+import Usermodel from "../Users/users.schema.js";
 async function Deleteplease(id) {
     try {
         if (!id) {

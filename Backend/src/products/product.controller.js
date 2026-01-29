@@ -28,9 +28,10 @@ export default class Productcontroller {
     async UpdateProduct(req, res, next) {
         try {
             const { id } = req.params;
-            const { data } = req.body;
+            const  data  = req.body;
+            const product=await this._Productrepo.findbyid(id);
 
-            if (data.createdBy.toString() !== req.user?.UserID.toString()) {
+            if (product.createdBy.toString() !== req.user?.UserID.toString()) {
                 return res
                     .status(404)
                     .json(
@@ -40,10 +41,10 @@ export default class Productcontroller {
                         )
                     );
             } else {
-                await this._Productrepo.updateproduct(id, data);
+               const result= await this._Productrepo.updateproduct(id, data);
                 return res
                     .status(201)
-                    .json(new APIResponse(201, "Updated success"));
+                    .json(new APIResponse(201, "Updated success",result));
             }
         } catch (error) {
             return res
@@ -54,9 +55,7 @@ export default class Productcontroller {
 
     async Readproduct(req, res, next) {
         try {
-            const { id } = req.params;
-
-            const result = await this._Productrepo.readproducts(id);
+            const result = await this._Productrepo.readproducts();
             return res
                 .status(200)
                 .json(new APIResponse(200, "product fetched...", result));
