@@ -2,14 +2,47 @@ import express from "express";
 import Managementcontroller from "./management.controller.js";
 import jwtAuth from "../middlewares/jwt.auth.js";
 
-const managementRouter=express.Router();
+const managementRouter = express.Router();
+const management = new Managementcontroller();
 
-const management=new Managementcontroller();
+managementRouter.get("/products/search", jwtAuth, (req, res, next) =>
+    management.searchproducts(req, res, next)
+);
 
+managementRouter.get("/products", jwtAuth, (req, res, next) =>
+    management.getallproducts(req, res, next)
+);
 
+managementRouter.get("/products/:id/:name", jwtAuth, (req, res, next) =>
+    management.productdetails(req, res, next)
+);
 
+managementRouter.get("/products/category/:category", jwtAuth, (req, res, next) =>
+    management.filterproductbycat(req, res, next)
+);
 
+managementRouter.get("/products/filter/price", jwtAuth, (req, res, next) =>
+    management.filterproductbyprice(req, res, next)
+);
 
+managementRouter.get("/products/filter/rating", jwtAuth, (req, res, next) =>
+    management.filterproductbyrating(req, res, next)
+);
+
+managementRouter.get("/products/total/:category", jwtAuth, (req, res, next) =>
+    management.totalproducts(req, res, next)
+);
+
+managementRouter.post("/reviews", jwtAuth, (req, res, next) =>
+    management.createreview(req, res, next)
+);
+
+managementRouter.delete("/admin/user/:userid", jwtAuth, (req, res, next) =>
+    management.removeuser(req, res, next)
+);
+
+managementRouter.delete("/admin/:adminid", jwtAuth, (req, res, next) =>
+    management.removeadmin(req, res, next)
+);
 
 export default managementRouter;
-

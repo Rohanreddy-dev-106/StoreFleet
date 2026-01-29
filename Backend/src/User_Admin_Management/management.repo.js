@@ -2,6 +2,8 @@ import productmodel from "../products/product.schema.js";
 import Deleteplease from "../util/user_admin_management.js";
 import Reviewmodel from "./review.schema.js"
 export default class Managementrepo {
+
+    //search product public/admin
     async searchproducts(name, description, category) {
         try {
             const filter = name || description || category;
@@ -13,6 +15,7 @@ export default class Managementrepo {
 
         }
     }
+    //getallproducts only for admin/Testing
     async getallproducts() {
         try {
             return await productmodel.find({});
@@ -20,6 +23,7 @@ export default class Managementrepo {
             console.log(error.message);
         }
     }
+    //public/admin api
     async productdetails(productName, id) {
         try {
             const product = await productmodel.findOne({
@@ -31,6 +35,7 @@ export default class Managementrepo {
             console.log(error.message);
         }
     }
+    //public/admin
     async filterproductbycat(category) {
         try {
             const products = await productmodel.find({ category: category });
@@ -39,6 +44,7 @@ export default class Managementrepo {
             console.log(error.message);
         }
     }
+    //public/admin
     async filterproductbyprice(minprice, maxprice) {
         try {
             const products = await productmodel.find({
@@ -49,6 +55,7 @@ export default class Managementrepo {
             console.log(error.message);
         }
     }
+    //maneger and admin only
     async Totalproducts(category, limit, skip) {
         try {
 
@@ -60,12 +67,15 @@ export default class Managementrepo {
 
         }
     }
+    //admin/manager
     async removeusers(userid) {
         return Deleteplease(userid);
     }
+    //manager
     async removeadmin(adminid) {
         return Deleteplease(adminid);
     }
+    //public/admin
     async createreview(data) {
         try {
             const exists = await Reviewmodel.countDocuments({ user: data.user, product: data.product });
@@ -85,6 +95,7 @@ export default class Managementrepo {
 
         }
     }
+    //public/admin
     async filterproductbyprice(minrating, maxrating) {
         try {
             return await Reviewmodel.find({ rating: { $gte: minrating, $lte: maxrating } })
@@ -94,17 +105,21 @@ export default class Managementrepo {
         }
     }
    // TODO:Admin DashBoard
-    async dashboard(category="Electronic",minprice=100,maxprice=5000){
-        try{
-           const data=await productmodel.aggregate(
-            {},
-            {}
-           )
-        }
-        catch(error){
-
-        }
+   //Per-Admin Revenue (Aggregation)
+   //Per-Admin Order Status Breakdown
+   //Per-Admin Daily Sale
+    async totalrevenue(){
     }
+    async totalorderstatus(){
+
+    }
+    async dailysale(){
+
+    }
+    async dailysaleaverage(){
+
+    }
+
 }
 
 
