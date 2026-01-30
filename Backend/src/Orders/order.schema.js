@@ -7,11 +7,16 @@ const Orders = new Schema(
         productId: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
         shippingAddress: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" },
         quantity: { type: Number },
+        price: { type: Number },
         totalAmount: { type: Number },
         status: {
             type: String,
             enum: ["Pending", "Shipped", "Delivered", "Cancelled"],
             default: "Pending",
+        },
+        paymentId: {
+            type: Schema.Types.ObjectId,
+            ref: "Payment",
         },
     },
     { timestamps: true },

@@ -2,18 +2,12 @@ import mongoose, { Schema } from "mongoose";
 
 const PaymentSchema = new Schema(
     {
-        orderId: {
-            type: Schema.Types.ObjectId,
-            ref: "Order",
-            required: true,
-            unique: true,
-        },
-
         userId: {
             type: Schema.Types.ObjectId,
             ref: "User",
             required: true,
         },
+        orders: [{ type: mongoose.Schema.type.ObjectId, ref: "Order" }],
 
         amount: {
             type: Number,
