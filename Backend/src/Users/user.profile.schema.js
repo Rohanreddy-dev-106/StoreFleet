@@ -71,4 +71,4 @@ const addressSchema = new Schema(
   }
 );
 
-export default  mongoose.model("profile",addressSchema);
+export default  mongoose.model("Profile",addressSchema);
