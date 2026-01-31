@@ -24,4 +24,6 @@ router.delete("/deleteall", jwtAuth, (req, res, next) =>
     cardController.ClearCard(req, res, next)
 );
 
+//order and payement routs
+
 export default router;
