@@ -7,7 +7,7 @@ const PaymentSchema = new Schema(
             ref: "User",
             required: true,
         },
-        orders: [{ type: mongoose.Schema.type.ObjectId, ref: "Order" }],
+        orders: [{ type: mongoose.Schema.Type.ObjectId, ref: "Order" }],
 
         amount: {
             type: Number,
@@ -25,10 +25,6 @@ const PaymentSchema = new Schema(
             required: true,
         },
 
-        paymentGateway: {
-            type: String,
-            enum: ["RAZORPAY", "STRIPE", "PAYPAL"],
-        },
         status: {
             type: String,
             enum: ["PENDING", "SUCCESS", "FAILED", "REFUNDED"],

@@ -6,7 +6,7 @@ const CartItemSchema = new Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
             required: true,
-            default:null
+            default: null
         },
 
         product: {
@@ -27,6 +27,11 @@ const CartItemSchema = new Schema(
             type: Number,
             required: true,
         },
+        total: {
+            type: Number,
+            required: true,
+            default: 0
+        }
     },
     { timestamps: true }
 );

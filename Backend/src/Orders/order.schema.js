@@ -17,6 +17,7 @@ const Orders = new Schema(
         paymentId: {
             type: Schema.Types.ObjectId,
             ref: "Payment",
+            default:null
         },
     },
     { timestamps: true },
