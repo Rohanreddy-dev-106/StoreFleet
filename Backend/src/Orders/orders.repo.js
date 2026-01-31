@@ -165,9 +165,10 @@ export default class OrdersRepo {
                 orders: storeOrders,// server calculated
             });
             const finalPayment = await paymentDoc.save();
+            await orderModel.updateMany({ _id: { $in: storeOrders } }, { $set: { paymentId: finalPayment._id } })
             await orderModel.updateMany(
                 { _id: { $in: storeOrders } },
-                { $set: { status: "PAID" } }
+                { $set: { status: "Shipped" } }
             );
 
             return finalPayment;
