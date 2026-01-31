@@ -121,7 +121,7 @@ export default class OrdersRepo {
                     price: orderItem.price,
                     totalAmount: orderItem.total
                 };
-
+                //order created
                 let orderDoc = new orderModel(data);
                 await orderDoc.save({ session });
             }
