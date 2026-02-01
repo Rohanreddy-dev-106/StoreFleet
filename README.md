@@ -4,7 +4,7 @@
       <img src="Backend/public/images/Logo_2.png" alt="Project Logo" width="160" height="160"/>
     </td>
     <td style="padding: 20px;">
-      <h1 style="margin: 0 0 16px 0; font-size: 2.5em;">E-Commerce Backend API</h1>
+      <h1 style="margin: 0 0 16px 0; font-size: 2.5em;">StoreFleet</h1>
       <p style="font-size: 1.1em; line-height: 1.6; margin: 0 0 12px 0; color: #586069;">
         A robust Node.js/Express backend API for e-commerce applications with user authentication, product management, order processing, and review system.
       </p>
