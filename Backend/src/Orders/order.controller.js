@@ -103,5 +103,36 @@ export default class Ordercontroller {
     }
 
     //order and payement controller
-
+    async Placeorder(req, res, next) {
+        try {
+            const data = req.body;
+            data.userId = req.user?.UserID;
+            const order = this._OrdersRepo.createorders(data);
+            return res
+                .status(200)
+                .json(new APIResponse(200, "Order is plased...", order));
+        }
+        catch (error) {
+            return res
+                .status(400)
+                .json(new ApiError(400, "Order Creation is failed", error.message));
+        }
+    }
+    async Payments(req, res, next) {
+        try {
+            const data = req.body;
+            data.userId = req.user?.UserID;
+            const payment = this._OrdersRepo.createPayment(data);
+            return res
+                .status(200)
+                .json(new APIResponse(200, "payment success...", payment));
+        }
+        catch (error) {
+            return res
+                .status(400)
+                .json(new ApiError(400, "Payment failed", error.message));
+        }
+    }
 }
+
+

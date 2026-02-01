@@ -25,5 +25,11 @@ router.delete("/deleteall", jwtAuth, (req, res, next) =>
 );
 
 //order and payement routs
+router.post("/createorder/:id", jwtAuth, (req, res, next) => {
+    cardController.Placeorder(req, res, next)
+})
+router.post("/payment", jwtAuth, (req, res, next) => {
+    cardController.Payments(req, res, next)
+})
 
 export default router;

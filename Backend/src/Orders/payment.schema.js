@@ -7,7 +7,7 @@ const PaymentSchema = new Schema(
             ref: "User",
             required: true,
         },
-        orders: [{ type: mongoose.Schema.Type.ObjectId, ref: "Order" }],
+        orders: [{ type: mongoose.Schema.Types.ObjectId, ref: "Order" }],
 
         amount: {
             type: Number,
@@ -40,7 +40,5 @@ const PaymentSchema = new Schema(
     },
     { timestamps: true }
 );
-
-PaymentSchema.index({ orderId: 1, userId: 1 });
 
 export default mongoose.model("Payment", PaymentSchema);
