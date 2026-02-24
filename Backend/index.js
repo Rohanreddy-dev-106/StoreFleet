@@ -20,7 +20,7 @@ const rateLimitMiddleware = rateLimit({
   max: 100,
   message: "You have reached the request limit. Please try again after 1 hour."
 })
-//server.use("/api", rateLimitMiddleware);
+server.use("/api", rateLimitMiddleware);
 
 //All apis endpoints
 
